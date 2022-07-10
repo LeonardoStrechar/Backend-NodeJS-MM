@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "db:pre-migrate": "node database/createDB.js",
+    "db:migrate": "npm run db:pre-migrate && node_modules/.bin/sequelize db:migrate"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
@@ -13,6 +15,7 @@
     "sequelize": "^6.21.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "sequelize-cli": "^6.4.1"
   }
 }
