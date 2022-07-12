@@ -3,13 +3,15 @@ const { prismaClient } = require("../database/prismaClient");
 class UserController {
     async create(request, response){
         const { name, email } = request.body;
-
-        const user = await prismaClient.user.create({
-            data: {
-                name,
-                email
-            }
-        })
+        console.log("chegou");
+        // const user = await prismaClient.user.create({
+        //     data: {
+        //         name,
+        //         email
+        //     }
+        // })
+        const user = await prismaClient.user.findMany()
+        console.log(user)
 
         return response.json(user);
     }
