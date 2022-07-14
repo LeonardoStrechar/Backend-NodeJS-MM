@@ -13,7 +13,6 @@ services:
       - database
     links:
       - database
-
   database:
     image: postgres
     container_name: database
@@ -25,8 +24,7 @@ services:
       - POSTGRES_PASSWORD=teste
       - POSTGRES_DB=project_node
     volumes:
-      - pgdata:/data/postgres
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata:
-    driver: local
