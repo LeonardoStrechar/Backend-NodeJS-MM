@@ -2,24 +2,114 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl"]
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
+    id         Int      @id @default(autoincrement())
+    name       String
+    email      String   @unique
+    password   String
+    status     Boolean  @default(true)
+    created_at DateTime @default(now())
+    update_at  DateTime @updatedAt
+
+    Course          Course[]
+    Module          Module[]
+    WatchedContents WatchedContent[]
+
+    @@map("users")
+}
+
+model Course {
+    id          Int      @id @default(autoincrement())
+    title       String
+    description String
+    Creator     User     @relation(fields: [creator_id], references: [id])
+    creator_id  Int
+    created_at  DateTime @default(now())
+    update_at   DateTime @updatedAt
+
+    Module Module[]
+
+    @@map("courses")
+}
+
+model Module {
+    id          Int      @id @default(autoincrement())
+    title       String
+    description String
+    Course      Course   @relation(fields: [course_id], references: [id])
+    course_id   Int
+    Creator     User     @relation(fields: [creator_id], references: [id])
+    creator_id  Int
+    created_at  DateTime @default(now())
+    update_at   DateTime @updatedAt
+
+    Content Content[]
+    @@map("modules")
+}
+
+model Content {
+    id         Int      @id @default(autoincrement())
+    title      String
+    content    String
+    Module     Module   @relation(fields: [module_id], references: [id])
+    module_id  Int
+    created_at DateTime @default(now())
+    update_at  DateTime @updatedAt
+
+    WatchedContent WatchedContent[]
+    @@map("contents")
+}
+
+model WatchedContent {
+    User       User     @relation(fields: [user_id], references: [id])
+    user_id    Int
+    Content    Content  @relation(fields: [content_id], references: [id])
+    content_id Int
+    created_at DateTime @default(now())
+
+    @@id([user_id, content_id])
+}
+
+model Modules {
+  id          Int      @id @default(autoincrement())
+  cursoID     Int
+  title       String
+  description Boolean  @default(true)
+  created_at  DateTime @default(now())
+  update_at   DateTime @updatedAt
+
+  @@map("modules")
+}
+
+model Contents {
   id         Int      @id @default(autoincrement())
-  name       String
-  email      String
-  status     Boolean  @default(true)
+  module_id  Int
+  title      String
+  content    String
   created_at DateTime @default(now())
   update_at  DateTime @updatedAt
 
-  @@map("users")
+  @@map("contents")
+}
+
+model Courses {
+  id          Int      @id @default(autoincrement())
+  unique_code Int
+  title       String
+  description String
+  created_at  DateTime @default(now())
+  update_at   DateTime @updatedAt
+
+  @@map("courses")
 }
 
 model Modules {
