@@ -22,10 +22,10 @@ model User {
 
     Course          Course[]
     Module          Module[]
+    Content         Content[]
     WatchedContents WatchedContent[]
 
     @@map("users")
-    Content Content[]
 }
 
 model Course {
@@ -54,6 +54,7 @@ model Module {
     update_at   DateTime @updatedAt
 
     Content Content[]
+
     @@map("modules")
 }
 
@@ -69,6 +70,7 @@ model Content {
     update_at  DateTime @updatedAt
 
     WatchedContent WatchedContent[]
+
     @@map("contents")
 }
 
