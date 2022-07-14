@@ -25,6 +25,7 @@ model User {
     WatchedContents WatchedContent[]
 
     @@map("users")
+    Content Content[]
 }
 
 model Course {
@@ -62,6 +63,8 @@ model Content {
     content    String
     Module     Module   @relation(fields: [module_id], references: [id])
     module_id  Int
+    Creator    User     @relation(fields: [creator_id], references: [id])
+    creator_id Int
     created_at DateTime @default(now())
     update_at  DateTime @updatedAt
 
@@ -77,70 +80,4 @@ model WatchedContent {
     created_at DateTime @default(now())
 
     @@id([user_id, content_id])
-}
-
-model Modules {
-  id          Int      @id @default(autoincrement())
-  cursoID     Int
-  title       String
-  description Boolean  @default(true)
-  created_at  DateTime @default(now())
-  update_at   DateTime @updatedAt
-
-  @@map("modules")
-}
-
-model Contents {
-  id         Int      @id @default(autoincrement())
-  module_id  Int
-  title      String
-  content    String
-  created_at DateTime @default(now())
-  update_at  DateTime @updatedAt
-
-  @@map("contents")
-}
-
-model Courses {
-  id          Int      @id @default(autoincrement())
-  unique_code Int
-  title       String
-  description String
-  created_at  DateTime @default(now())
-  update_at   DateTime @updatedAt
-
-  @@map("courses")
-}
-
-model Modules {
-  id          Int      @id @default(autoincrement())
-  cursoID     Int
-  title       String
-  description Boolean  @default(true)
-  created_at  DateTime @default(now())
-  update_at   DateTime @updatedAt
-
-  @@map("modules")
-}
-
-model Contents {
-  id         Int      @id @default(autoincrement())
-  module_id  Int
-  title      String
-  content    String
-  created_at DateTime @default(now())
-  update_at  DateTime @updatedAt
-
-  @@map("contents")
-}
-
-model Courses {
-  id          Int      @id @default(autoincrement())
-  unique_code Int
-  title       String
-  description String
-  created_at  DateTime @default(now())
-  update_at   DateTime @updatedAt
-
-  @@map("courses")
 }
