@@ -4,6 +4,7 @@ const prisma = require('../prisma');
 class ContentController {
 	async create(request, response) {
 		try {
+			const { id } = request;
 			const { title, content, moduleId } = request.body;
 
 			if (!title || !content || !moduleId) {
@@ -15,12 +16,13 @@ class ContentController {
 			if (!moduleExists) {
 				throw new AppError('Module not found', 404);
 			}
-
+			console.log('chegou');
 			const moduleContent = await prisma.content.create({
 				data: {
 					title,
 					content,
 					module_id: moduleId,
+					creator_id: id,
 				},
 				include: {
 					Module: true,
@@ -33,6 +35,7 @@ class ContentController {
 				return response.status(error.statusCode).json({ message: error.message });
 			}
 
+			console.log(error.message);
 			return response.status(500).json({
 				status: 'error',
 				message: `Internal server error - ${error.message}`,
