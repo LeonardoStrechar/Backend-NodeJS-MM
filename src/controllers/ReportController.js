@@ -75,7 +75,9 @@ class ReportController {
 					},
 					Module: {
 						include: {
-							Content: true,
+							_count: {
+								select: { Content: true },
+							},
 						},
 					},
 				},
