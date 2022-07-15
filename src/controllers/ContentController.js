@@ -16,7 +16,7 @@ class ContentController {
 			if (!moduleExists) {
 				throw new AppError('Module not found', 404);
 			}
-			console.log('chegou');
+
 			const moduleContent = await prisma.content.create({
 				data: {
 					title,
