@@ -54,10 +54,8 @@ class ReportController {
 			});
 
 			const formattedResponse = [];
-
 			for await (let course of courses) {
 				const formattedCourse = {};
-
 				formattedCourse.title = course.title;
 
 				formattedCourse.contents = 0;
@@ -67,6 +65,10 @@ class ReportController {
 
 				formattedResponse.push(formattedCourse);
 			}
+
+			formattedResponse.sort((a, b) => {
+				return b.contents - a.contents;
+			});
 
 			return response.json(formattedResponse);
 		} catch (error) {
