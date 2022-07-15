@@ -36,24 +36,39 @@ class ReportController {
 
 	async report2(request, response) {
 		try {
-			const users = await prisma.user.findMany({
+			const courses = await prisma.course.findMany({
 				include: {
-					_count: {
-						select: { Content: true },
+					Module: {
+						include: {
+							_count: {
+								select: { Content: true },
+							},
+						},
 					},
 				},
 				orderBy: {
-					Content: {
+					Module: {
 						_count: 'desc',
 					},
 				},
 			});
 
-			for await (let user of users) {
-				delete user.password;
+			const formattedResponse = [];
+
+			for await (let course of courses) {
+				const formattedCourse = {};
+
+				formattedCourse.title = course.title;
+
+				formattedCourse.contents = 0;
+				for await (let _module of course.Module) {
+					formattedCourse.contents += _module._count.Content;
+				}
+
+				formattedResponse.push(formattedCourse);
 			}
 
-			return response.json(users);
+			return response.json(formattedResponse);
 		} catch (error) {
 			if (error instanceof AppError) {
 				return response.status(error.statusCode).json({ message: error.message });
