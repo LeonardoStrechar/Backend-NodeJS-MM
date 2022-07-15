@@ -46,11 +46,6 @@ class ReportController {
 						},
 					},
 				},
-				orderBy: {
-					Module: {
-						_count: 'desc',
-					},
-				},
 			});
 
 			const formattedResponse = [];
