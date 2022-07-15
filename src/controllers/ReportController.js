@@ -83,7 +83,23 @@ class ReportController {
 				},
 			});
 
-			return response.json(courses);
+			const formattedResponse = [];
+
+			for await (let course of courses) {
+				const formattedCourse = {};
+
+				formattedCourse.title = course.title;
+				formattedCourse.modules = course._count.Module;
+
+				formattedCourse.contents = 0;
+				for await (let _module of course.Module) {
+					formattedCourse.contents += _module._count.Content;
+				}
+
+				formattedResponse.push(formattedCourse);
+			}
+
+			return response.json(formattedResponse);
 		} catch (error) {
 			if (error instanceof AppError) {
 				return response.status(error.statusCode).json({ message: error.message });
