@@ -77,7 +77,7 @@ model Content {
 model WatchedContent {
     User       User     @relation(fields: [user_id], references: [id])
     user_id    Int
-    Content    Content  @relation(fields: [content_id], references: [id])
+    Content    Content  @relation(fields: [content_id], references: [id], onDelete: Cascade)
     content_id Int
     created_at DateTime @default(now())
 
