@@ -46,7 +46,7 @@ model Module {
     id          Int      @id @default(autoincrement())
     title       String
     description String
-    Course      Course   @relation(fields: [course_id], references: [id])
+    Course      Course   @relation(fields: [course_id], references: [id], onDelete: Cascade)
     course_id   Int
     Creator     User     @relation(fields: [creator_id], references: [id])
     creator_id  Int
@@ -77,7 +77,7 @@ model Content {
 model WatchedContent {
     User       User     @relation(fields: [user_id], references: [id])
     user_id    Int
-    Content    Content  @relation(fields: [content_id], references: [id], onDelete: Cascade)
+    Content    Content  @relation(fields: [content_id], references: [id])
     content_id Int
     created_at DateTime @default(now())
 
