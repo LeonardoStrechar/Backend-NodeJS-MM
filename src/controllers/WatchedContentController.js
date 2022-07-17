@@ -19,7 +19,6 @@ class WatchedContentController {
 					content_id: contentId,
 				},
 				include: {
-					User: true,
 					Content: true,
 				},
 			});
@@ -34,7 +33,6 @@ class WatchedContentController {
 					content_id: contentId,
 				},
 				include: {
-					User: true,
 					Content: true,
 				},
 			});

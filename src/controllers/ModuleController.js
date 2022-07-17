@@ -27,7 +27,6 @@ class ModuleController {
 				},
 				include: {
 					Course: true,
-					Creator: true,
 				},
 			});
 
@@ -51,7 +50,6 @@ class ModuleController {
 			const courseModule = await prisma.module.findFirst({
 				where: { id: Number(id) },
 				include: {
-					Creator: true,
 					Course: true,
 				},
 			});
@@ -77,7 +75,6 @@ class ModuleController {
 		try {
 			const modules = await prisma.module.findMany({
 				include: {
-					Creator: true,
 					Course: true,
 				},
 			});
@@ -132,7 +129,6 @@ class ModuleController {
 				where: { id },
 				data: courseModule,
 				include: {
-					Creator: true,
 					Course: true,
 				},
 			});

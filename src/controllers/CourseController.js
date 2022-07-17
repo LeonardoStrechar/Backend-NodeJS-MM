@@ -17,9 +17,6 @@ class CourseController {
 					description,
 					creator_id: id,
 				},
-				include: {
-					Creator: true,
-				},
 			});
 
 			return response.status(201).json(course);
@@ -42,7 +39,6 @@ class CourseController {
 			const course = await prisma.course.findFirst({
 				where: { id: Number(id) },
 				include: {
-					Creator: true,
 					Module: true,
 				},
 			});
@@ -68,7 +64,6 @@ class CourseController {
 		try {
 			const courses = await prisma.course.findMany({
 				include: {
-					Creator: true,
 					Module: true,
 				},
 			});
@@ -95,7 +90,6 @@ class CourseController {
 			const courseExists = await prisma.course.findFirst({
 				where: { id },
 				include: {
-					Creator: true,
 					Module: true,
 				},
 			});
