@@ -5,7 +5,8 @@ class ContentController {
 	async create(request, response) {
 		try {
 			const { id } = request;
-			const { title, content, moduleId } = request.body;
+			const { title, content } = request.body;
+			const moduleId = Number(request.body.moduleId);
 
 			if (!title || !content || !moduleId) {
 				throw new AppError('Missing title, content or moduleId!', 400);
@@ -96,7 +97,8 @@ class ContentController {
 		try {
 			const id = Number(request.params.id);
 
-			const { title, content, moduleId } = request.body;
+			const { title, content } = request.body;
+			const moduleId = Number(request.body.moduleId);
 
 			const contentExists = await prisma.content.findFirst({ where: { id } });
 

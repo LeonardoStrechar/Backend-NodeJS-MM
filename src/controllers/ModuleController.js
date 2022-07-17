@@ -5,7 +5,8 @@ class ModuleController {
 	async create(request, response) {
 		try {
 			const { id } = request;
-			const { title, description, courseId } = request.body;
+			const { title, description } = request.body;
+			const courseId = Number(request.body.courseId);
 
 			if (!title || !description || !courseId) {
 				throw new AppError('Missing title, description or courseId!', 400);
@@ -98,7 +99,8 @@ class ModuleController {
 		try {
 			const id = Number(request.params.id);
 
-			const { title, description, courseId } = request.body;
+			const { title, description } = request.body;
+			const courseId = Number(request.body.courseId);
 
 			const moduleExists = await prisma.module.findFirst({ where: { id } });
 
