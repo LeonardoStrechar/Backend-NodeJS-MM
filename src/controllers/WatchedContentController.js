@@ -68,7 +68,7 @@ class WatchedContentController {
 
 			await prisma.watchedContent.delete({
 				where: {
-					user_id_content_id: { user_id: 1, content_id: 1 },
+					user_id_content_id: { user_id: id, content_id: contentId },
 				},
 			});
 
