@@ -62,7 +62,7 @@ model Content {
     id         Int      @id @default(autoincrement())
     title      String
     content    String
-    Module     Module   @relation(fields: [module_id], references: [id])
+    Module     Module   @relation(fields: [module_id], references: [id], onDelete: Cascade)
     module_id  Int
     Creator    User     @relation(fields: [creator_id], references: [id])
     creator_id Int
