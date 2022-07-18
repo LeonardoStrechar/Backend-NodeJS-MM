@@ -23,7 +23,7 @@
 
 ## `docker-compose up`
 
-### after docker create the container run the command for the migrations:
+### after docker create the container run the command for the migrations in another terminal:
 
 ## `npx prisma migrate reset`
 
