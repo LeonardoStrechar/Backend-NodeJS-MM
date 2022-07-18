@@ -35,5 +35,7 @@
 ## `docker inspect database`
 
 ### get the value of "IPAddress"
-### and put it in the .env file
+### and put it in the .env file replacing "172.18.0.3" for new ip
+
+## DATABASE_URL="postgresql://teste:teste@172.18.0.3:5432/project_node?schema=public"
 
