@@ -2,5 +2,5 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: "docker-compose up && npx prisma migrate reset"
+  web: "docker-compose up && npx prisma migrate reset && docker-compose stop && docker-compose up"
   # web: sh -c "npx prisma generate && npx prisma migrate && npm run dev"
