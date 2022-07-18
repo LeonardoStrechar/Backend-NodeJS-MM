@@ -9,6 +9,9 @@ require("dotenv").config();
 
 const app = express();
 
+const host = "0.0.0.0";
+const port = process.env.PORT || 3000;
+
 app.use(cors());
 
 app.use(express.json());
@@ -16,6 +19,10 @@ app.use(express.json());
 app.use(router);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.listen(process.env.PORT || 3001, () => {
-	console.log("Server is running");
+app.listen(port, host, function () {
+	console.log("Server started.......");
 });
+
+// app.listen(process.env.PORT || 3001, () => {
+// 	console.log("Server is running");
+// });
