@@ -4,7 +4,7 @@ services:
   app:
     container_name: app
     build: .
-    command: npm run dev
+    command: sh -c "npx prisma migrate && npm run dev"
     volumes:
       - .:/usr/app
     ports:
@@ -20,9 +20,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=teste
-      - POSTGRES_PASSWORD=teste
-      - POSTGRES_DB=project_node
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
