@@ -1,7 +1,7 @@
-const { compare } = require('bcrypt');
-const { sign } = require('jsonwebtoken');
-const AppError = require('../errors/AppError');
-const prisma = require('../prisma');
+const { compare } = require("bcrypt");
+const { sign } = require("jsonwebtoken");
+const AppError = require("../errors/AppError");
+const prisma = require("../prisma");
 
 class AuthenticateController {
 	async login(request, response) {
@@ -9,7 +9,7 @@ class AuthenticateController {
 			const { email, password } = request.body;
 
 			if (!email || !password) {
-				throw new AppError('Missing email or password!', 400);
+				throw new AppError("Missing email or password!", 400);
 			}
 
 			const user = await prisma.user.findFirst({
@@ -19,18 +19,18 @@ class AuthenticateController {
 			});
 
 			if (!user) {
-				throw new AppError('Incorrect email or password!', 400);
+				throw new AppError("Incorrect email or password!", 400);
 			}
 
 			const passwordMatch = await compare(password, user.password);
 
 			if (!passwordMatch) {
-				throw new AppError('Incorrect email or password!', 400);
+				throw new AppError("Incorrect email or password!", 400);
 			}
 
-			const token = sign({}, '391ac7797da75aab27f318bbe9e1d8f3', {
+			const token = sign({}, "391ac7797da75aab27f318bbe9e1d8f3", {
 				subject: `${user.id} ${user.email}`,
-				expiresIn: '1d',
+				expiresIn: "1d",
 			});
 
 			return response.status(201).json({
@@ -46,7 +46,7 @@ class AuthenticateController {
 			}
 
 			return response.status(500).json({
-				status: 'error',
+				status: "error",
 				message: `Internal server error - ${error.message}`,
 			});
 		}
