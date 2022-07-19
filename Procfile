@@ -1,1 +1,1 @@
-web: npx prisma migrate reset && npm run start
+web: npx prisma migrate reset -f && npm run start
